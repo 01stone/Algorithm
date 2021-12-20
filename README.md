@@ -7,7 +7,7 @@
 3. ```Ctrl``` + ```Shift``` + ```B``` : 실행 단축키
 4. 만약 ```No build task to run found. Configure Build Task...```이런 문구가 나온다면...
 5. ```Ctrl``` + ```Shift``` + ```P```
-6. ```Tasks:Configure Task```
+6. ```Tasks:Configure Task```, 템플릿에서 task.json파일 만들기
 7. ```Others``` : ```task.json``` 생성
 8. 아래 내용으로 변경 후, 다시 실행하면 ✔
     ``` 
