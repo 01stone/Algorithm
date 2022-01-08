@@ -166,3 +166,118 @@
     ```
 
 ## (3) 스택 프로그램 만들기
+```
+from enum import Enum
+from fixed_stack import FixedStack
+
+Menu = Enum('Menu', ['푸시', '팝', '피크', '검색', '덤프', '종료'])
+
+def select_menu():
+    # 메뉴 선택
+    s = [f'({m.value}){m.name}' for m in Menu]
+    while True:
+        print(*s, sep = '   ', end='')
+        n = int(input(': '))
+        if 1 <= n <= len(Menu):
+            return Menu(n)
+
+s = FixedStack(64)  # 최대 64개를 푸시할 수 있는 스택
+
+while True:
+    print(f'현재 데이터 개수: {len(s)} / {s.capacity}')
+    menu = select_menu()  # 메뉴 선택
+    
+    if menu == Menu.푸시:  # 푸시
+        x = int(input('데이터를 입력하세요.: '))
+        try:
+            s.push(x)
+        except FixedStack.Full:
+            print('스택이 가득 차 있습니다.')
+
+    elif menu == Menu.팝:  # 팝
+        try:
+            x = s.pop()
+            print(f'팝한 데이터는 {x}입니다.')
+        except FixedStack.Empty:
+            print('스택이 비어 있습니다.')
+
+    elif menu == Menu.피크:  # 피크
+        try:
+            x = s.peek()
+            print(f'피크한 데이터는 {x}입니다.')
+        except FixedStack.Empty:
+            print('스택이 비어 있습니다.')
+
+    elif menu == Menu.검색:  # 검색
+        x = int(input('검색할 값을 입력하세요.: '))
+        if x in s:
+            print(f'{s.count(x)}개 포함되고, 맨 앞의 위치는 {s.find(x)}입니다.')
+        else:
+            print('검색값을 찾을 수 없습니다.')
+
+    elif menu == Menu.덤프:  # 덤프
+        s.dump()
+
+    else:
+        break
+```
+> ```collections.deque```로 스택 구현하기
+```
+from typing import Any
+from collections import deque
+
+class Stack:
+    # 고정 길이 스택 클래스(collections.deque를 사용)
+
+    def __init__(self, maxlen: int = 256) -> None:
+        """초기화 선언"""
+        self.capacity = maxlen
+        self.__stk = deque([], maxlen)
+
+    def __len__(self) -> int:
+        """스택에 쌓여있는 데이터 개수를 반환"""
+        return len(self.__stk)
+
+    def is_empty(self) -> bool:
+        """스택이 비어 있는지 판단"""
+        return not self.__stk
+
+    def is_full(self) -> bool:
+        """스택이 가득 찼는지 판단"""
+        return len(self.__stk) == self.__stk.maxlen
+
+    def push(self, value: Any) -> None:
+        """스택에 value를 푸시"""
+        self.__stk.append(value)
+
+    def pop(self) -> Any:
+        """스택에서 데이터를 팝"""
+        return self.__stk.pop()
+
+    def peek(self) -> Any:
+        """스택에서 데이터를 피크"""
+        return self.__stk[-1]
+
+    def clear(self) -> None:
+        """스택을 비웁니다"""
+        self.__stk.clear()
+
+    def find(self, value: Any) -> Any:
+        """스택에서 value를 찾아 인덱스(없으면 -1)를 반환"""
+        try:
+            return self.__stk.index(value)
+        except ValueError:
+            return -1
+
+    def count(self, value: Any) -> int:
+        """스택에 포함된 value의 개수를 반환"""
+        return self.__stk.count(value)
+
+    def __contains__(self, value: Any) -> bool:
+        """스택에 value가 포함되어 있는지 판단"""
+        return self.count(value)
+
+    def dump(self) -> int:
+        """스택 안에 있는 모든 데이터를 나열"""
+        print(list(self.__stk))
+```
