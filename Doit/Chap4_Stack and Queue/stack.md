@@ -24,7 +24,7 @@
   - 가장 마지막에 push한 데이터 : ```stk[ptr-1]``` = 53
   
 <center>
-    <img src="./image_stack/example_stack.png" width="70%" height="70%">
+    <img src="./image_stack/example_stack.PNG" width="70%" height="70%">
 </center>
 
 - 스택에서 사용하는 예외 클래스와 사용하는 함수  
