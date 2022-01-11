@@ -59,4 +59,4 @@
     }
     ```
 - git clone 220104
-- git clone 220112
+- git clone 220112 & pull 시도
