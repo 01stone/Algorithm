@@ -57,6 +57,12 @@
             }
         ]
     }
-    ```
-- git clone 220104
-- git clone 220112 & pull 시도
+    ```  
+    
+- 220104 git clone
+  - git clone ```[주소]```     
+
+- 220112 git clone & pull 시도
+  - git clone ```[주소]```
+  - git remote -v : 원격저장소 연결
+  - git pull  
